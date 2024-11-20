@@ -1,0 +1,50 @@
+m od ule A LU (A,B,aluout,carryout,alusel);
+input [7 :0]A,B;
+input [3 :0]alusel;
+outp ut[7 :0]aluout;
+outp ut carryout;
+reg [7:0 ]aluresult;
+wire [8:0]tem p;
+assign aluout=aluresult;
+assign tem p={4 'b0 000 }+{4'b0 000 };
+assign carryout=tem p[8];
+always@ (* )
+begin
+case(alusel)
+4'b00 00:
+aluresult=(A+B);
+4'b00 01:
+aluresult=(A-B);
+4'b00 10:
+aluresult=(A*B);
+4'b00 11:
+aluresult=(A/B);
+4'b01 00:
+aluresult=(A<<1);
+4'b01 01:
+aluresult=(A>>1);
+4'b01 10:
+aluresult={A[6 :0],A[7]};
+4'b01 11:
+aluresult={A[0 ],A [7 :1]};
+4'b10 00:
+aluresult=(A&B);
+4'b10 01:
+aluresult=(A|B);
+4'b10 10:
+aluresult=(A^B);
+4'b10 11:
+aluresult=(~(A&B));
+4'b11 00:
+aluresult=(~(A|B));
+4'b11 01:
+aluresult=(~(A^B));
+4'b11 10:
+aluresult=(A>B)?8'd1:8'd 0;
+4'b11 11:
+aluresult=(A==B)?8'd1 :8'd0;
+default:
+aluresult=A+B;
+end case
+end
+endm odule
